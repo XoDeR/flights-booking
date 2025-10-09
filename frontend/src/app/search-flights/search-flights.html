@@ -1,1 +1,12 @@
-<p>search-flights works!</p>
+<p>Search Flights</p>
+
+@for (flight of searchResults; track $index) {
+    <li>{{ flight }}</li>
+} @empty {
+    <li>There are no items.</li>
+}
+
+<!-- old ng for loop -->
+<!-- <div *ngFor="let flight of searchResults">
+    {{ flight }}
+</div> -->
