@@ -63,15 +63,99 @@
 
 </div>
 
-
-
-@for (flight of searchResults; track $index) {
-    <li>{{ flight }}</li>
+<!-- @for (flight of searchResults; track $index) {
+    <div>{{ flight }}</div>
 } @empty {
-    <li>There are no items.</li>
-}
+    <div>There are no items.</div>
+} -->
 
 <!-- old ng for loop -->
-<div *ngFor="let flight of searchResults">
+<!-- <div *ngFor="let flight of searchResults">
     {{ flight }}
-</div>
+</div> -->
+
+<!-- Detailed info -->
+@for (flight of searchResults; track $index) {
+    <div class="card text-dark mt-5 text-center">
+        <div class="card-body" style="pading: 20px; background-color: #e5ecf26e">
+            <h6 class="card-title">{{flight.airline}}</h6>
+            <div class="card-title" style="color:#ff3939">
+                {{flight.remainingNumberOfSeats}} remaining seats
+            </div>
+
+            <div class="d-grid text-center g-2">
+                <div class="row">
+                    <div class="col">
+
+                        <div class="col m-3">
+                            <i class="text-primary fa fa-plane-departure" style="font-size:20px;"></i>
+                        </div>
+
+                        <div class="col">
+                            <i class="fa-solid fa-location-dot">
+                                {{flight.departure.place}}
+                            </i>
+                        </div>
+
+                        <div class="col m-2">
+                            <i class="fa-regular"></i>
+                            <!-- | date -- angular pipe operator, 
+                            built-in pipe ;ile data, currency are a part of CommonModule -->
+                            {{flight.departure.time | date}} 
+                        </div>
+
+                        <div class="col">
+                            <i class="fa-regular fa-clock"></i>
+                            {{flight.departure.time | date:'shortTime'}} 
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="col">
+                            <div style="display:flex;">
+                                <i class="fa-solid fa-circle" style="margin-top:50px; font-size:9px"></i>
+                                <hr style="display:block; width: 100%; margin-top: 55px;">
+                                <i class="fa fa-plane" style="margin-top:48px;"></i>
+                            </div>
+
+                            <i class="fa fa-usd">{{flight.price}}</i>
+                            <br>
+                            <a class="btn btn-secondary btn-lg mt-2" href="">
+                                <i class="fa fa-ticket"></i>
+                                Book
+                            </a>
+                        </div>
+
+                        <div class="col">
+
+                            <div class="col m-3">
+                                <i class="text-primary fa fa-plane-arrival" style="font-size:20px;"></i>
+                            </div>
+
+                            <div class="col">
+                                <i class="fa-solid fa-location-dot">
+                                    {{flight.arrival.place}}
+                                </i>
+                            </div>
+
+                            <div class="col m-2">
+                                <i class="fa-regular"></i>
+                                {{flight.arrival.time | date}} 
+                            </div>
+
+                            <div class="col">
+                                <i class="fa-regular fa-clock"></i>
+                                {{flight.arrival.time | date:'shortTime'}} 
+                            </div>
+
+                        </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+} @empty {
+    <div>There are no items.</div>
+}
