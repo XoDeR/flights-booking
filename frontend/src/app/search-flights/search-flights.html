@@ -1,4 +1,69 @@
-<p>Search Flights</p>
+<h5 class="text-md-center m-5">Search for Flights</h5>
+
+<div class="m-5 d-grid gap-3">
+
+    <div class="row">
+
+        <!-- row 1 -->
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" placeholeder="From" class="form-control">
+                <label for="" class="text-primary form-label">From</label>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-floating">
+                <input type="text" placeholeder="Destination" class="form-control">
+                <label for="" class="text-primary form-label">Destination</label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- row 2 -->
+    <div class="row">
+
+        <div class="col">
+            <div class="form-floating">
+                <input type="date" placeholeder="From Date" class="form-control">
+                <label for="" class="text-primary form-label">From Date</label>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="form-floating">
+                <input type="date" placeholeder="To Date" class="form-control">
+                <label for="" class="text-primary form-label">To Date</label>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- row 3 -->
+    <div class="row">
+
+        <div class="col text-end">
+            <label class="form-label text-primary mt-2" for="">Number of Passengers</label>
+        </div>
+
+        <div class="col">
+            <div class="input-group">
+                <div class="input-group-text">For</div>
+                <input type="number" class="form-control" placeholder="1">
+                <div class="input-group-text">Passengers</div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
 
 @for (flight of searchResults; track $index) {
     <li>{{ flight }}</li>
@@ -7,6 +72,6 @@
 }
 
 <!-- old ng for loop -->
-<!-- <div *ngFor="let flight of searchResults">
+<div *ngFor="let flight of searchResults">
     {{ flight }}
-</div> -->
+</div>

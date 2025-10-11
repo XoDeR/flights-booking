@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
 
 @Component({
   selector: 'app-search-flights',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './search-flights.html',
   styleUrl: './search-flights.scss'
 })
