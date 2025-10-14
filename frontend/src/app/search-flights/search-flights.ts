@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
+import { FlightService } from './../api/services/flight.service';
+import { FlightRm } from '../api/models';
+
 
 @Component({
   selector: 'app-search-flights',
@@ -16,7 +19,7 @@ export class SearchFlights {
     "Lufthansa",
   ];
 
-  searchResults: FlightRm[] = [
+  searchResultsV02: FlightRm[] = [
     {
       airline: "American Airlines",
       remainingNumberOfSeats: 500,
@@ -40,9 +43,19 @@ export class SearchFlights {
     }
   ];
 
+  searchResult: FlightRm[] = []
 
+  constructor(private flightService: FlightService) { }
+
+  search() {
+    this.flightService.flightGet()
+      .then(r => this.searchResult = r)
+      .catch(err => console.error('API error:', err));
+  }
 }
 
+/*
+// old read models
 // rm -- read module, just a convention for interfaces' names
 export interface FlightRm {
   airline: string;
@@ -56,3 +69,4 @@ export interface TimePlaceRm {
   place: string;
   time: string;
 }
+*/

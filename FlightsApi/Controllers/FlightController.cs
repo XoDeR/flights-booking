@@ -1,6 +1,7 @@
 using FlightsApi.ReadModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FlightsApi.Controllers
 {
@@ -17,7 +18,8 @@ namespace FlightsApi.Controllers
 
         Random random = new Random();
 
-        [HttpGet]
+        [HttpGet("/Flight")]
+        //[SwaggerOperation(OperationId = "getFlights")]
         public IEnumerable<FlightRm> Search()
             => new FlightRm[]
             {

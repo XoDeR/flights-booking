@@ -18,6 +18,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "FlightsApi", Version = "1.0" });
+    c.EnableAnnotations(); // if using [SwaggerOperation]
     c.AddServer(new OpenApiServer
     {
         Description = "Development Server",
@@ -43,7 +45,10 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "FlightsApi v1");
+    });
 }
 
 // We don't use authorisation yet

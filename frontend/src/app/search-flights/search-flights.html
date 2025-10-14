@@ -53,7 +53,7 @@
                 <input type="number" class="form-control" placeholder="1">
                 <div class="input-group-text">Passengers</div>
 
-                <button type="submit" class="btn btn-primary">
+                <button (click)="search()" type="submit" class="btn btn-primary">
                     <i class="fa fa-search"></i>
                 </button>
             </div>
@@ -75,7 +75,7 @@
 </div> -->
 
 <!-- Detailed info -->
-@for (flight of searchResults; track $index) {
+@for (flight of searchResult; track $index) {
     <div class="card text-dark mt-5 text-center">
         <div class="card-body" style="padding: 20px; background-color: #e5ecf26e">
             <h6 class="card-title">{{flight.airline}}</h6>
@@ -93,7 +93,7 @@
 
                         <div class="col">
                             <i class="fa-solid fa-location-dot">
-                                {{flight.departure.place}}
+                                {{flight.departure?.place}}
                             </i>
                         </div>
 
@@ -101,12 +101,12 @@
                             <i class="fa-regular"></i>
                             <!-- | date -- angular pipe operator, 
                             built-in pipe ;ile data, currency are a part of CommonModule -->
-                            {{flight.departure.time | date}} 
+                            {{flight.departure?.time | date}} 
                         </div>
 
                         <div class="col">
                             <i class="fa-regular fa-clock"></i>
-                            {{flight.departure.time | date:'shortTime'}} 
+                            {{flight.departure?.time | date:'shortTime'}} 
                         </div>
 
                         
@@ -136,18 +136,18 @@
 
                             <div class="col">
                                 <i class="fa-solid fa-location-dot">
-                                    {{flight.arrival.place}}
+                                    {{flight.arrival?.place}}
                                 </i>
                             </div>
 
                             <div class="col m-2">
                                 <i class="fa-regular"></i>
-                                {{flight.arrival.time | date}} 
+                                {{flight.arrival?.time | date}} 
                             </div>
 
                             <div class="col">
                                 <i class="fa-regular fa-clock"></i>
-                                {{flight.arrival.time | date:'shortTime'}} 
+                                {{flight.arrival?.time | date:'shortTime'}} 
                             </div>
 
                         </div>
