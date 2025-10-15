@@ -18,7 +18,8 @@ namespace FlightsApi.Controllers
 
         Random random = new Random();
 
-        [HttpGet("/Flight")]
+        [HttpGet]
+        //[HttpGet("/Flight")]
         //[SwaggerOperation(OperationId = "getFlights")]
         public IEnumerable<FlightRm> Search()
             => new FlightRm[]

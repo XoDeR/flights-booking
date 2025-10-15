@@ -48,7 +48,7 @@ export class SearchFlights {
   constructor(private flightService: FlightService) { }
 
   search() {
-    this.flightService.flightGet()
+    this.flightService.searchFlight()
       .then(r => this.searchResult = r)
       .catch(err => console.error('API error:', err));
   }

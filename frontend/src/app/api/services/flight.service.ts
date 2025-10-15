@@ -9,11 +9,11 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
-import { flightGet } from '../fn/flight/flight-get';
-import { FlightGet$Params } from '../fn/flight/flight-get';
-import { flightGet$Plain } from '../fn/flight/flight-get-plain';
-import { FlightGet$Plain$Params } from '../fn/flight/flight-get-plain';
 import { FlightRm } from '../models/flight-rm';
+import { searchFlight } from '../fn/flight/search-flight';
+import { SearchFlight$Params } from '../fn/flight/search-flight';
+import { searchFlight$Plain } from '../fn/flight/search-flight-plain';
+import { SearchFlight$Plain$Params } from '../fn/flight/search-flight-plain';
 
 @Injectable({ providedIn: 'root' })
 export class FlightService extends BaseService {
@@ -21,50 +21,50 @@ export class FlightService extends BaseService {
     super(config, http);
   }
 
-  /** Path part for operation `flightGet()` */
-  static readonly FlightGetPath = '/Flight';
+  /** Path part for operation `searchFlight()` */
+  static readonly SearchFlightPath = '/Flight';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `flightGet$Plain()` instead.
+   * To access only the response body, use `searchFlight$Plain()` instead.
    *
    * This method doesn't expect any request body.
    */
-  flightGet$Plain$Response(params?: FlightGet$Plain$Params, context?: HttpContext): Promise<StrictHttpResponse<Array<FlightRm>>> {
-    const obs = flightGet$Plain(this.http, this.rootUrl, params, context);
+  searchFlight$Plain$Response(params?: SearchFlight$Plain$Params, context?: HttpContext): Promise<StrictHttpResponse<Array<FlightRm>>> {
+    const obs = searchFlight$Plain(this.http, this.rootUrl, params, context);
     return firstValueFrom(obs);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `flightGet$Plain$Response()` instead.
+   * To access the full response (for headers, for example), `searchFlight$Plain$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  flightGet$Plain(params?: FlightGet$Plain$Params, context?: HttpContext): Promise<Array<FlightRm>> {
-    const resp = this.flightGet$Plain$Response(params, context);
+  searchFlight$Plain(params?: SearchFlight$Plain$Params, context?: HttpContext): Promise<Array<FlightRm>> {
+    const resp = this.searchFlight$Plain$Response(params, context);
     return resp.then((r: StrictHttpResponse<Array<FlightRm>>): Array<FlightRm> => r.body);
   }
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `flightGet()` instead.
+   * To access only the response body, use `searchFlight()` instead.
    *
    * This method doesn't expect any request body.
    */
-  flightGet$Response(params?: FlightGet$Params, context?: HttpContext): Promise<StrictHttpResponse<Array<FlightRm>>> {
-    const obs = flightGet(this.http, this.rootUrl, params, context);
+  searchFlight$Response(params?: SearchFlight$Params, context?: HttpContext): Promise<StrictHttpResponse<Array<FlightRm>>> {
+    const obs = searchFlight(this.http, this.rootUrl, params, context);
     return firstValueFrom(obs);
   }
 
   /**
    * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `flightGet$Response()` instead.
+   * To access the full response (for headers, for example), `searchFlight$Response()` instead.
    *
    * This method doesn't expect any request body.
    */
-  flightGet(params?: FlightGet$Params, context?: HttpContext): Promise<Array<FlightRm>> {
-    const resp = this.flightGet$Response(params, context);
+  searchFlight(params?: SearchFlight$Params, context?: HttpContext): Promise<Array<FlightRm>> {
+    const resp = this.searchFlight$Response(params, context);
     return resp.then((r: StrictHttpResponse<Array<FlightRm>>): Array<FlightRm> => r.body);
   }
 
