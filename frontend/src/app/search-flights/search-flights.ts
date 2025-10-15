@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
+import { RouterModule } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
 
 
 @Component({
   selector: 'app-search-flights',
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './search-flights.html',
   styleUrl: './search-flights.scss'
 })
