@@ -6,7 +6,7 @@ import { BookFlight } from './book-flight/book-flight';
 export const routes: Routes = [
   { path: '', redirectTo: 'search-flights', pathMatch: 'full' },
   { path: 'search-flights', component: SearchFlights },
-  { path: 'book-flight', component: BookFlight },
+  { path: 'book-flight/:flightId', component: BookFlight },
 ];
 
 
