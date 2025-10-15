@@ -64,7 +64,7 @@ namespace FlightsApi.Controllers
                     new TimePlaceRm("Le Bourget",DateTime.Now.AddHours(random.Next(1, 58))),
                     new TimePlaceRm("Zagreb",DateTime.Now.AddHours(random.Next(4, 60))),
                         random.Next(1, 853))
-        }
+        };
 
         public FlightController(ILogger<FlightController> logger)
         {
