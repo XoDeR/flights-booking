@@ -45,7 +45,9 @@ export class BookFlight implements OnInit {
     //   .catch(err => console.error('API error:', err));
   }
 
-  private handleError(err: unknown): void {
-    console.error('Failed to load flight:', err);
+  private handleError(err: any) {
+    console.log("Response Error. Status: ", err.status);
+    console.log("Response Error. Status Text: ", err.statusText);
+    console.error('API error:', err)
   }
 }

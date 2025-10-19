@@ -51,7 +51,13 @@ export class SearchFlights {
   search() {
     this.flightService.searchFlight()
       .then(r => this.searchResult = r)
-      .catch(err => console.error('API error:', err));
+      .catch(err => this.handleError(err));
+  }
+
+  private handleError(err: any) {
+    console.log("Response Error. Status: ", err.status);
+    console.log("Response Error. Status Text: ", err.statusText);
+    console.error('API error:', err)
   }
 }
 
