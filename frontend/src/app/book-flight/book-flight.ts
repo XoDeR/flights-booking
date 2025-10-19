@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
 import { CommonModule } from '@angular/common';
+import { from, Observable } from 'rxjs';
+import { signal } from '@angular/core';
 
 @Component({
   selector: 'app-book-flight',
@@ -16,7 +18,13 @@ export class BookFlight implements OnInit {
   ) { } // called before properties are set
 
   flightId: string = 'not loaded';
-  flight: FlightRm = {};
+  //flight: FlightRm = {};
+
+  private _flight = signal<FlightRm>({});
+
+  get flight(): FlightRm {
+    return this._flight();
+  }
 
   ngOnInit(): void { // called after everything is set up
     this.route.paramMap
@@ -26,8 +34,18 @@ export class BookFlight implements OnInit {
   private findFlight = (flightId: string | null) => {
     this.flightId = flightId ?? 'not passed';
 
-    this.flightService.findFlight({ id: this.flightId })
-      .then(f => { this.flight = f; console.log(this.flight); })
-      .catch(err => console.error('API error:', err));
+    from(this.flightService.findFlight({ id: this.flightId }))
+      .subscribe({
+        next: flight => this._flight.set(flight),
+        error: err => this.handleError(err)
+      });
+
+    // this.flightService.findFlight({ id: this.flightId })
+    //   .then(f => { this.flight = f; console.log(this.flight); })
+    //   .catch(err => console.error('API error:', err));
+  }
+
+  private handleError(err: unknown): void {
+    console.error('Failed to load flight:', err);
   }
 }
