@@ -72,6 +72,9 @@ namespace FlightsApi.Controllers
         }
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(400)] // bad request
+        [ProducesResponseType(500)] // internal server error
+        [ProducesResponseType(typeof(FlightRm), 200)]
         [HttpGet("{id}")] // param needs to be specified
         public ActionResult<FlightRm> Find(Guid id)
         {
@@ -86,6 +89,9 @@ namespace FlightsApi.Controllers
         [HttpGet]
         //[HttpGet("/Flight")]
         //[SwaggerOperation(OperationId = "getFlights")]
+        [ProducesResponseType(400)] // bad request
+        [ProducesResponseType(500)] // internal server error
+        [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search()
             => flights;
     }
