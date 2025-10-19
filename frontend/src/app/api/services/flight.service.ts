@@ -9,6 +9,10 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { findFlight } from '../fn/flight/find-flight';
+import { FindFlight$Params } from '../fn/flight/find-flight';
+import { findFlight$Plain } from '../fn/flight/find-flight-plain';
+import { FindFlight$Plain$Params } from '../fn/flight/find-flight-plain';
 import { FlightRm } from '../models/flight-rm';
 import { searchFlight } from '../fn/flight/search-flight';
 import { SearchFlight$Params } from '../fn/flight/search-flight';
@@ -19,6 +23,53 @@ import { SearchFlight$Plain$Params } from '../fn/flight/search-flight-plain';
 export class FlightService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `findFlight()` */
+  static readonly FindFlightPath = '/Flight/{id}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findFlight$Plain()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFlight$Plain$Response(params: FindFlight$Plain$Params, context?: HttpContext): Promise<StrictHttpResponse<FlightRm>> {
+    const obs = findFlight$Plain(this.http, this.rootUrl, params, context);
+    return firstValueFrom(obs);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findFlight$Plain$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFlight$Plain(params: FindFlight$Plain$Params, context?: HttpContext): Promise<FlightRm> {
+    const resp = this.findFlight$Plain$Response(params, context);
+    return resp.then((r: StrictHttpResponse<FlightRm>): FlightRm => r.body);
+  }
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `findFlight()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFlight$Response(params: FindFlight$Params, context?: HttpContext): Promise<StrictHttpResponse<FlightRm>> {
+    const obs = findFlight(this.http, this.rootUrl, params, context);
+    return firstValueFrom(obs);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `findFlight$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  findFlight(params: FindFlight$Params, context?: HttpContext): Promise<FlightRm> {
+    const resp = this.findFlight$Response(params, context);
+    return resp.then((r: StrictHttpResponse<FlightRm>): FlightRm => r.body);
   }
 
   /** Path part for operation `searchFlight()` */
