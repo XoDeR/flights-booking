@@ -7,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrl: './register-passenger.scss'
 })
 export class RegisterPassenger {
+  register() {
 
+  }
 }
