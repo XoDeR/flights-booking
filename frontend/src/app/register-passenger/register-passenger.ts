@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { PassengerService } from '../api/services/passenger.service';
 
 @Component({
   selector: 'app-register-passenger',
@@ -7,7 +8,9 @@ import { Component } from '@angular/core';
   styleUrl: './register-passenger.scss'
 })
 export class RegisterPassenger {
-  register() {
+  constructor(private passengerService: PassengerService) { }
 
+  register() {
+    this.passengerService.registerPassenger();
   }
 }
