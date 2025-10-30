@@ -27,6 +27,7 @@ export class RegisterPassenger {
 
   register() {
     console.log("Form fields: ", this.form.value);
-    this.passengerService.registerPassenger();
+    this.passengerService.registerPassenger({ body: this.form.value })
+      .then(_ => console.log("Form posted to server"));
   }
 }
