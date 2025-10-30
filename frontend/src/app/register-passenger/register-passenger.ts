@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { PassengerService } from '../api/services/passenger.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { Auth } from '../auth/auth';
 
 @Component({
   selector: 'app-register-passenger',
@@ -13,7 +14,8 @@ export class RegisterPassenger {
   form!: FormGroup;
 
   constructor(private passengerService: PassengerService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private auth: Auth
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class RegisterPassenger {
   register() {
     console.log("Form fields: ", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })
-      .then(_ => console.log("Form posted to server"));
+      .then(_ => this.auth.loginUser({ email: this.form.get('email')?.value }))
+      .catch(err => console.error('API error:', err));
   }
 }
