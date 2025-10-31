@@ -27,6 +27,18 @@ export class RegisterPassenger {
     });
   }
 
+  checkPassenger(): void {
+    const params = { email: this.form.get('email')?.value };
+
+    this.passengerService
+      .findPassenger(params)
+      .then(_ => {
+        console.log("Passenger exists. Logging in now.");
+        this.auth.loginUser({ email: this.form.get('email')?.value });
+      })
+      .catch(err => console.error('API error:', err));
+  }
+
   register() {
     console.log("Form fields: ", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })

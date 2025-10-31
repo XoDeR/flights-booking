@@ -11,3 +11,7 @@ export type { SearchFlight$Params } from './fn/flight/search-flight';
 export { searchFlight } from './fn/flight/search-flight';
 export type { RegisterPassenger$Params } from './fn/passenger/register-passenger';
 export { registerPassenger } from './fn/passenger/register-passenger';
+export type { FindPassenger$Plain$Params } from './fn/passenger/find-passenger-plain';
+export { findPassenger$Plain } from './fn/passenger/find-passenger-plain';
+export type { FindPassenger$Params } from './fn/passenger/find-passenger';
+export { findPassenger } from './fn/passenger/find-passenger';
