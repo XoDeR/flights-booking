@@ -20,7 +20,7 @@ namespace FlightsApi.Controllers
             Passengers.Add(dto);
             //System.Diagnostics.Debug.WriteLine(Passengers.Count);
             Console.WriteLine(Passengers.Count);
-            return CreatedAtAction(nameof(Find), new { email = dto.Email });
+            return CreatedAtAction(nameof(Find), new { email = dto.Email }, dto);
         }
 
         [HttpGet("{email}")]
