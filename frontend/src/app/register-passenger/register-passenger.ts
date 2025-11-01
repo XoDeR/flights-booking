@@ -3,6 +3,7 @@ import { PassengerService } from '../api/services/passenger.service';
 import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Auth } from '../auth/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-passenger',
@@ -15,7 +16,8 @@ export class RegisterPassenger {
 
   constructor(private passengerService: PassengerService,
     private fb: FormBuilder,
-    private auth: Auth
+    private auth: Auth,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -36,7 +38,12 @@ export class RegisterPassenger {
         console.log("Passenger exists. Logging in now.");
         this.login();
       })
-      .catch(err => console.error('API error:', err));
+      .catch(err => {
+        if (err.status != 404) {
+          console.error('API error:', err)
+        }
+      }
+      );
   }
 
   register() {
@@ -48,5 +55,6 @@ export class RegisterPassenger {
 
   private login = () => {
     this.auth.loginUser({ email: this.form.get('email')?.value });
+    this.router.navigate(['/search-flights']);
   }
 }

@@ -5,6 +5,7 @@ import { FlightRm } from '../api/models';
 import { CommonModule } from '@angular/common';
 import { from } from 'rxjs';
 import { signal } from '@angular/core';
+import { Auth } from '../auth/auth';
 
 @Component({
   selector: 'app-book-flight',
@@ -15,7 +16,8 @@ import { signal } from '@angular/core';
 export class BookFlight implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private flightService: FlightService
+    private flightService: FlightService,
+    private auth: Auth
   ) { } // called before properties are set
 
   flightId: string = 'not loaded';
@@ -28,6 +30,9 @@ export class BookFlight implements OnInit {
   }
 
   ngOnInit(): void { // called after everything is set up
+    if (!this.auth.currentUser)
+      this.router.navigate(['/register-passenger']);
+
     this.route.paramMap
       .subscribe(p => this.findFlight(p.get("flightId")));
   }
