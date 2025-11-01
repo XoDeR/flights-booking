@@ -34,7 +34,7 @@ export class RegisterPassenger {
       .findPassenger(params)
       .then(_ => {
         console.log("Passenger exists. Logging in now.");
-        this.auth.loginUser({ email: this.form.get('email')?.value });
+        this.login();
       })
       .catch(err => console.error('API error:', err));
   }
@@ -42,7 +42,11 @@ export class RegisterPassenger {
   register() {
     console.log("Form fields: ", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })
-      .then(_ => this.auth.loginUser({ email: this.form.get('email')?.value }))
+      .then(_ => this.login())
       .catch(err => console.error('API error:', err));
+  }
+
+  private login = () => {
+    this.auth.loginUser({ email: this.form.get('email')?.value });
   }
 }
