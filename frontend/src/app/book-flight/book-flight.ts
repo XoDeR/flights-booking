@@ -6,10 +6,11 @@ import { CommonModule } from '@angular/common';
 import { from } from 'rxjs';
 import { signal } from '@angular/core';
 import { Auth } from '../auth/auth';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-book-flight',
-  imports: [CommonModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './book-flight.html',
   styleUrl: './book-flight.scss'
 })
@@ -17,11 +18,13 @@ export class BookFlight implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private flightService: FlightService,
-    private auth: Auth
+    private auth: Auth,
+    private fb: FormBuilder
   ) { } // called before properties are set
 
   flightId: string = 'not loaded';
   //flight: FlightRm = {};
+  form!: FormGroup;
 
   private _flight = signal<FlightRm>({});
 
@@ -35,6 +38,10 @@ export class BookFlight implements OnInit {
 
     this.route.paramMap
       .subscribe(p => this.findFlight(p.get("flightId")));
+
+    this.form = this.fb.group({
+      number: [1]
+    });
   }
 
   private findFlight = (flightId: string | null) => {
@@ -60,5 +67,9 @@ export class BookFlight implements OnInit {
     console.log("Response Error. Status: ", err.status);
     console.log("Response Error. Status Text: ", err.statusText);
     console.error('API error:', err)
+  }
+
+  book() {
+    console.log(`Booking ${this.form.get('number')?.value} passengers for the flight: ${this.flight.id}`);
   }
 }

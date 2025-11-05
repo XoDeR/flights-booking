@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { PassengerService } from '../api/services/passenger.service';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { FormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { Auth } from '../auth/auth';
 import { Router } from '@angular/router';
 
