@@ -2,6 +2,7 @@ using FlightsApi.ReadModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
+using FlightsApi.Dtos;
 
 namespace FlightsApi.Controllers
 {
@@ -66,6 +67,8 @@ namespace FlightsApi.Controllers
                         random.Next(1, 853))
         };
 
+        static private IList<BookDto> Bookings = new List<BookDto>();
+
         public FlightController(ILogger<FlightController> logger)
         {
             _logger = logger;
@@ -94,5 +97,12 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search()
             => flights;
+
+        [HttpPost]
+        public void Book(BookDto dto)
+        {
+            Console.WriteLine($"Booking a new flight {dto.FlightId}");
+            Bookings.Add(dto);
+        }
     }
 }
