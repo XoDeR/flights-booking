@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { bookFlight } from '../fn/flight/book-flight';
+import { BookFlight$Params } from '../fn/flight/book-flight';
 import { findFlight } from '../fn/flight/find-flight';
 import { FindFlight$Params } from '../fn/flight/find-flight';
 import { findFlight$Plain } from '../fn/flight/find-flight-plain';
@@ -117,6 +119,31 @@ export class FlightService extends BaseService {
   searchFlight(params?: SearchFlight$Params, context?: HttpContext): Promise<Array<FlightRm>> {
     const resp = this.searchFlight$Response(params, context);
     return resp.then((r: StrictHttpResponse<Array<FlightRm>>): Array<FlightRm> => r.body);
+  }
+
+  /** Path part for operation `bookFlight()` */
+  static readonly BookFlightPath = '/Flight';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `bookFlight()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  bookFlight$Response(params?: BookFlight$Params, context?: HttpContext): Promise<StrictHttpResponse<void>> {
+    const obs = bookFlight(this.http, this.rootUrl, params, context);
+    return firstValueFrom(obs);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `bookFlight$Response()` instead.
+   *
+   * This method sends `application/*+json` and handles request body of type `application/*+json`.
+   */
+  bookFlight(params?: BookFlight$Params, context?: HttpContext): Promise<void> {
+    const resp = this.bookFlight$Response(params, context);
+    return resp.then((r: StrictHttpResponse<void>): void => r.body);
   }
 
 }

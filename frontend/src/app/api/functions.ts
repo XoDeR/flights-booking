@@ -9,6 +9,8 @@ export type { SearchFlight$Plain$Params } from './fn/flight/search-flight-plain'
 export { searchFlight$Plain } from './fn/flight/search-flight-plain';
 export type { SearchFlight$Params } from './fn/flight/search-flight';
 export { searchFlight } from './fn/flight/search-flight';
+export type { BookFlight$Params } from './fn/flight/book-flight';
+export { bookFlight } from './fn/flight/book-flight';
 export type { RegisterPassenger$Params } from './fn/passenger/register-passenger';
 export { registerPassenger } from './fn/passenger/register-passenger';
 export type { FindPassenger$Plain$Params } from './fn/passenger/find-passenger-plain';
