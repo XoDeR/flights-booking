@@ -78,12 +78,10 @@ export class BookFlight implements OnInit {
       numberOfSeats: this.form.get('number')?.value,
     };
 
-    this.flightService.bookFlight({ body: booking })
-      .then(_ => {
-        console.log("succeeded");
-      })
-      .catch(err => {
-        console.error('API error:', err)
+    from(this.flightService.bookFlight({ body: booking }))
+      .subscribe({
+        next: _ => this.router.navigate(['/my-bookings']),
+        error: err => this.handleError(err)
       });
   }
 }
