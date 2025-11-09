@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { from } from 'rxjs';
 import { signal } from '@angular/core';
 import { Auth } from '../auth/auth';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-book-flight',
@@ -40,7 +40,7 @@ export class BookFlight implements OnInit {
       .subscribe(p => this.findFlight(p.get("flightId")));
 
     this.form = this.fb.group({
-      number: [1]
+      number: [1, Validators.required, Validators.min(1), Validators.max(254)]
     });
   }
 
@@ -70,6 +70,10 @@ export class BookFlight implements OnInit {
   }
 
   book() {
+    if (this.form.invalid) {
+      return;
+    }
+
     console.log(`Booking ${this.form.get('number')?.value} passengers for the flight: ${this.flight.id}`);
 
     const booking: BookDto = {
@@ -83,5 +87,9 @@ export class BookFlight implements OnInit {
         next: _ => this.router.navigate(['/my-bookings']),
         error: err => this.handleError(err)
       });
+  }
+
+  get number() {
+    return this.form.controls['number'];
   }
 }
