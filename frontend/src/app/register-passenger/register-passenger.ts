@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { PassengerService } from '../api/services/passenger.service';
-import { FormGroup, ReactiveFormsModule, FormBuilder } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../auth/auth';
 import { Router } from '@angular/router';
 
@@ -21,10 +21,10 @@ export class RegisterPassenger {
 
   ngOnInit() {
     this.form = this.fb.group({
-      email: [''],
-      firstName: [''],
-      lastName: [''],
-      isFemale: [true],
+      email: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(100)])],
+      firstName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(40)])],
+      lastName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(40)])],
+      isFemale: [true, Validators.required],
     });
   }
 
@@ -46,6 +46,10 @@ export class RegisterPassenger {
   }
 
   register() {
+    if (this.form.invalid) {
+      return;
+    }
+
     console.log("Form fields: ", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })
       .then(_ => this.login())
