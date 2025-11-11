@@ -68,8 +68,6 @@ namespace FlightsApi.Controllers
                         random.Next(1, 853))
         };
 
-        static private IList<BookDto> Bookings = new List<BookDto>();
-
         public FlightController(ILogger<FlightController> logger)
         {
             _logger = logger;
@@ -141,12 +139,20 @@ namespace FlightsApi.Controllers
         {
             Console.WriteLine($"Booking a new flight {dto.FlightId}");
 
-            var flightFound = flights.Any(f => f.Id == dto.FlightId);
+            var flight = flights.SingleOrDefault(f => f.Id == dto.FlightId);
 
-            if (flightFound == false)
+            if (flight == null)
+            {
                 return NotFound();
+            }
 
-            Bookings.Add(dto);
+            flight.Bookings.Add(
+                new Booking(
+                    dto.FlightId,
+                    dto.PassengerEmail,
+                    dto.NumberOfSeats
+                )
+            );
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
         }
     }
