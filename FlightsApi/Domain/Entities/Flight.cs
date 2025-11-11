@@ -1,11 +1,12 @@
 namespace FlightsApi.Domain.Entities
 {
-    public record FlightRm(
+    // Entities are used for storing data (in db)
+    public record Flight(
         Guid Id,
         string Airline,
         string Price,
-        TimePlaceRm Departure,
-        TimePlaceRm Arrival,
+        TimePlace Departure,
+        TimePlace Arrival,
         int RemainingNumberOfSeats
         );
 }
