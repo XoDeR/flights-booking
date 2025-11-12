@@ -2,6 +2,7 @@ using FlightsApi.ReadModels;
 using Microsoft.AspNetCore.Mvc;
 using FlightsApi.Dtos;
 using FlightsApi.Domain.Entities;
+using FlightsApi.Domain.Errors;
 
 namespace FlightsApi.Controllers
 {
@@ -144,20 +145,12 @@ namespace FlightsApi.Controllers
                 return NotFound();
             }
 
-            // Example of domain rules validation
-            if (flight.RemainingNumberOfSeats < dto.NumberOfSeats)
+            var error = flight.MakeBooking(dto.PassengerEmail, dto.NumberOfSeats);
+
+            if (error is OverbookError)
             {
                 return Conflict(new { message = "The number of requested seats exceeds the number of remainining seats" }); // 409
             }
-
-            flight.Bookings.Add(
-                new Booking(
-                    dto.PassengerEmail,
-                    dto.NumberOfSeats
-                )
-            );
-
-            flight.RemainingNumberOfSeats -= dto.NumberOfSeats;
 
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
         }
