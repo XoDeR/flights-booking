@@ -1,7 +1,5 @@
 using FlightsApi.ReadModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using FlightsApi.Dtos;
 using FlightsApi.Domain.Entities;
 
@@ -154,7 +152,6 @@ namespace FlightsApi.Controllers
 
             flight.Bookings.Add(
                 new Booking(
-                    dto.FlightId,
                     dto.PassengerEmail,
                     dto.NumberOfSeats
                 )
