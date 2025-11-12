@@ -146,6 +146,12 @@ namespace FlightsApi.Controllers
                 return NotFound();
             }
 
+            // Example of domain rules validation
+            if (flight.RemainingNumberOfSeats < dto.NumberOfSeats)
+            {
+                return Conflict(new { message = "The number of requested seats exceeds the number of remainining seats" }); // 409
+            }
+
             flight.Bookings.Add(
                 new Booking(
                     dto.FlightId,
@@ -153,6 +159,9 @@ namespace FlightsApi.Controllers
                     dto.NumberOfSeats
                 )
             );
+
+            flight.RemainingNumberOfSeats -= dto.NumberOfSeats;
+
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
         }
     }
