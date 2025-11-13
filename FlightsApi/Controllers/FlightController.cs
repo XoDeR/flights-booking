@@ -101,6 +101,8 @@ namespace FlightsApi.Controllers
                 return Conflict(new { message = "The number of requested seats exceeds the number of remainining seats" }); // 409
             }
 
+            _entities.SaveChanges();
+
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
         }
     }

@@ -30,6 +30,9 @@ namespace FlightsApi.Controllers
                 dto.LastName,
                 dto.Gender
             ));
+
+            _entities.SaveChanges();
+
             //System.Diagnostics.Debug.WriteLine(Passengers.Count);
             Console.WriteLine(_entities.Passengers.Count());
             return CreatedAtAction(nameof(Find), new { email = dto.Email }, dto);
