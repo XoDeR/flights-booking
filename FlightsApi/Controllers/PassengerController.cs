@@ -10,6 +10,8 @@ namespace FlightsApi.Controllers
     [ApiController]
     public class PassengerController : ControllerBase
     {
+        static private readonly Entities Entities = new Entities();
+
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]

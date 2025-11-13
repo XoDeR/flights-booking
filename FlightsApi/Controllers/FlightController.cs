@@ -10,6 +10,8 @@ namespace FlightsApi.Controllers
     [ApiController]
     public class FlightController : ControllerBase
     {
+        static private readonly Entities Entities = new Entities();
+
         private readonly ILogger<FlightController> _logger;
 
         public FlightController(ILogger<FlightController> logger)

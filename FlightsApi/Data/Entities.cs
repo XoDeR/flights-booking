@@ -4,12 +4,12 @@ namespace FlightsApi.Data
 {
     public class Entities
     {
-        static public IList<Passenger> Passengers = new List<Passenger>();
+        public IList<Passenger> Passengers = new List<Passenger>();
 
         static Random random = new Random();
 
         // Mock data: flights
-        static public Flight[] flights = new Flight[]
+        public Flight[] flights = new Flight[]
         {
             new (Guid.NewGuid(),
                     "American Airlines",
