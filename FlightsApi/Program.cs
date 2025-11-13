@@ -1,6 +1,5 @@
 using FlightsApi.Data;
 using Microsoft.EntityFrameworkCore;
-
 using Microsoft.OpenApi.Models; // For OpenApiServer
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +38,8 @@ builder.Services.AddCors(options =>
               .AllowAnyMethod();
     });
 });
+
+builder.Services.AddSingleton<Entities>();
 
 var app = builder.Build();
 

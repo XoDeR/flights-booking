@@ -10,13 +10,15 @@ namespace FlightsApi.Controllers
     [ApiController]
     public class FlightController : ControllerBase
     {
-        static private readonly Entities Entities = new Entities();
+        private readonly Entities _entities;
 
         private readonly ILogger<FlightController> _logger;
 
-        public FlightController(ILogger<FlightController> logger)
+        public FlightController(ILogger<FlightController> logger,
+            Entities entities)
         {
             _logger = logger;
+            _entities = entities;
         }
 
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -26,7 +28,7 @@ namespace FlightsApi.Controllers
         [HttpGet("{id}")] // param needs to be specified
         public ActionResult<FlightRm> Find(Guid id)
         {
-            var flight = Entities.flights.SingleOrDefault(f => f.Id == id);
+            var flight = _entities.flights.SingleOrDefault(f => f.Id == id);
             if (flight == null)
             {
                 return NotFound();
@@ -58,7 +60,7 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search()
         {
-            var flightRmList = Entities.flights.Select(flight => new FlightRm(
+            var flightRmList = _entities.flights.Select(flight => new FlightRm(
                 flight.Id,
                 flight.Airline,
                 flight.Price,
@@ -85,7 +87,7 @@ namespace FlightsApi.Controllers
         {
             Console.WriteLine($"Booking a new flight {dto.FlightId}");
 
-            var flight = Entities.flights.SingleOrDefault(f => f.Id == dto.FlightId);
+            var flight = _entities.flights.SingleOrDefault(f => f.Id == dto.FlightId);
 
             if (flight == null)
             {
