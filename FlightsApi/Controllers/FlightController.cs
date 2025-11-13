@@ -28,7 +28,7 @@ namespace FlightsApi.Controllers
         [HttpGet("{id}")] // param needs to be specified
         public ActionResult<FlightRm> Find(Guid id)
         {
-            var flight = _entities.flights.SingleOrDefault(f => f.Id == id);
+            var flight = _entities.Flights.SingleOrDefault(f => f.Id == id);
             if (flight == null)
             {
                 return NotFound();
@@ -60,7 +60,7 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search()
         {
-            var flightRmList = _entities.flights.Select(flight => new FlightRm(
+            var flightRmList = _entities.Flights.Select(flight => new FlightRm(
                 flight.Id,
                 flight.Airline,
                 flight.Price,
@@ -87,7 +87,7 @@ namespace FlightsApi.Controllers
         {
             Console.WriteLine($"Booking a new flight {dto.FlightId}");
 
-            var flight = _entities.flights.SingleOrDefault(f => f.Id == dto.FlightId);
+            var flight = _entities.Flights.SingleOrDefault(f => f.Id == dto.FlightId);
 
             if (flight == null)
             {
