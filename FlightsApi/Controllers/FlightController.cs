@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FlightsApi.Dtos;
 using FlightsApi.Domain.Errors;
 using FlightsApi.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlightsApi.Controllers
 {
@@ -101,7 +102,14 @@ namespace FlightsApi.Controllers
                 return Conflict(new { message = "The number of requested seats exceeds the number of remainining seats" }); // 409
             }
 
-            _entities.SaveChanges();
+            try
+            {
+                _entities.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException e)
+            {
+
+            }
 
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
         }
