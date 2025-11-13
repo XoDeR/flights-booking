@@ -24,13 +24,14 @@ namespace FlightsApi.Controllers
         public IActionResult Register(NewPassengerDto dto)
         {
             _entities.Passengers.Add(new Passenger(
+                Guid.NewGuid(),
                 dto.Email,
                 dto.FirstName,
                 dto.LastName,
                 dto.Gender
             ));
             //System.Diagnostics.Debug.WriteLine(Passengers.Count);
-            Console.WriteLine(_entities.Passengers.Count);
+            Console.WriteLine(_entities.Passengers.Count());
             return CreatedAtAction(nameof(Find), new { email = dto.Email }, dto);
         }
 

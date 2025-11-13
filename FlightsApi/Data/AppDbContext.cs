@@ -1,9 +1,12 @@
-using Microsoft.EntityFrameworkCore;
+// // This class is not used, Entities is used instead
+// // Kept just as an example
 
-namespace FlightsApi.Data;
+// using Microsoft.EntityFrameworkCore;
 
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
-{
-    // usage example
-    //public DbSet<Product> Products => Set<Product>();
-}
+// namespace FlightsApi.Data;
+
+// public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
+// {
+//     // usage example
+//     //public DbSet<Product> Products => Set<Product>();
+// }
