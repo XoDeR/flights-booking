@@ -3,7 +3,7 @@ using FlightsApi.Domain.Errors;
 namespace FlightsApi.Domain.Entities
 {
     // Entities are used for storing data (in db)
-    public record Flight
+    public class Flight
     {
         public Guid Id { get; init; } = Guid.Empty;
         public string Airline { get; init; } = string.Empty;
