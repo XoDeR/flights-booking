@@ -108,7 +108,7 @@ namespace FlightsApi.Controllers
             }
             catch (DbUpdateConcurrencyException e)
             {
-
+                return Conflict(new { message = "An error occurred while booking. Please try again." });
             }
 
             return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
