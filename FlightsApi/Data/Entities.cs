@@ -21,6 +21,9 @@ namespace FlightsApi.Data
                 ap.Property(p => p.Place).HasColumnName("ArrivalPlace");
                 ap.Property(p => p.Time).HasColumnName("ArrivalTime");
             });
+
+            // To avoid race condition whe the same seat is booked simultaneously
+            modelBuilder.Entity<Flight>().Property(p => p.RemainingNumberOfSeats).IsConcurrencyToken();
         }
     }
 }
