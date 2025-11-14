@@ -21,6 +21,15 @@ export class MyBookings implements OnInit {
 
   ngOnInit(): void {
     from(this.bookingService.listBooking({ email: this.auth.currentUser?.email ?? '' }))
-      .subscribe(r => this.bookings = r);
+      .subscribe({
+        next: r => this.bookings = r,
+        error: err => this.handleError(err)
+      });
+  }
+
+  private handleError(err: any) {
+    console.log("Response Error, status:", err.status);
+    console.log("Response Error, status text:", err.statusText);
+    console.log(err);
   }
 }
