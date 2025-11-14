@@ -4,6 +4,7 @@ import { BookingService } from '../api/services';
 import { from } from 'rxjs';
 import { Auth } from '../auth/auth';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-bookings',
@@ -15,11 +16,16 @@ export class MyBookings implements OnInit {
   bookings!: BookingRm[];
 
   constructor(private bookingService: BookingService,
-    private auth: Auth
+    private auth: Auth,
+    private router: Router
   ) {
   }
 
   ngOnInit(): void {
+    if (!this.auth.currentUser?.email) {
+      this.router.navigate(['/register-passenger']);
+    }
+
     from(this.bookingService.listBooking({ email: this.auth.currentUser?.email ?? '' }))
       .subscribe({
         next: r => this.bookings = r,
