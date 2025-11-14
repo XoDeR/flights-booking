@@ -3,10 +3,11 @@ import { PassengerService } from '../api/services/passenger.service';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../auth/auth';
 import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register-passenger',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './register-passenger.html',
   styleUrl: './register-passenger.scss'
 })
