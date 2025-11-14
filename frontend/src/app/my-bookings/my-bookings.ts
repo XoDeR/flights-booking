@@ -1,11 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { BookingRm } from '../api/models';
+import { BookingService } from '../api/services';
+import { from } from 'rxjs';
+import { Auth } from '../auth/auth';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-my-bookings',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './my-bookings.html',
   styleUrl: './my-bookings.scss'
 })
-export class MyBookings {
+export class MyBookings implements OnInit {
+  bookings!: BookingRm[];
 
+  constructor(private bookingService: BookingService,
+    private auth: Auth
+  ) {
+  }
+
+  ngOnInit(): void {
+    from(this.bookingService.listBooking({ email: this.auth.currentUser?.email ?? '' }))
+      .subscribe(r => this.bookings = r);
+  }
 }
