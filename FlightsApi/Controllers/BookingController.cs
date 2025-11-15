@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using FlightsApi.Data;
 using FlightsApi.ReadModels;
+using FlightsApi.Dtos;
+using FlightsApi.Domain.Errors;
 
 namespace FlightsApi.Controllers
 {
@@ -37,6 +39,31 @@ namespace FlightsApi.Controllers
             );
 
             return Ok(bookings);
+        }
+
+        [HttpDelete]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(500)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(404)]
+        public IActionResult Cancel(BookDto dto)
+        {
+            var flight = _entities.Flights.Find(dto.FlightId);
+
+            var error = flight?.CancelBooking(dto.PassengerEmail, dto.NumberOfSeats);
+
+            if (error == null)
+            {
+                _entities.SaveChanges();
+                return NoContent();
+            }
+
+            if (error is NotFoundError)
+            {
+                return NotFound();
+            }
+
+            throw new Exception($"The error of type: {error.GetType().Name} while cancelling booking for {dto.PassengerEmail}");
         }
     }
 }
