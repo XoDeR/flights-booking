@@ -5,6 +5,8 @@ export type { ListBooking$Plain$Params } from './fn/booking/list-booking-plain';
 export { listBooking$Plain } from './fn/booking/list-booking-plain';
 export type { ListBooking$Params } from './fn/booking/list-booking';
 export { listBooking } from './fn/booking/list-booking';
+export type { CancelBooking$Params } from './fn/booking/cancel-booking';
+export { cancelBooking } from './fn/booking/cancel-booking';
 export type { FindFlight$Plain$Params } from './fn/flight/find-flight-plain';
 export { findFlight$Plain } from './fn/flight/find-flight-plain';
 export type { FindFlight$Params } from './fn/flight/find-flight';
