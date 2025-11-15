@@ -45,5 +45,10 @@ export class MyBookings implements OnInit {
       numberOfSeats: booking.numberOfBookedSeats,
       passengerEmail: booking.passengerEmail
     };
+
+    from(this.bookingService.cancelBooking({ body: dto }))
+      .subscribe(_ => {
+        this.bookings = this.bookings.filter(b => b != booking)
+      }, this.handleError);
   }
 }
