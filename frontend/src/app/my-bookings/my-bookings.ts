@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BookingRm } from '../api/models';
+import { BookDto, BookingRm } from '../api/models';
 import { BookingService } from '../api/services';
 import { from } from 'rxjs';
 import { Auth } from '../auth/auth';
@@ -37,5 +37,13 @@ export class MyBookings implements OnInit {
     console.log("Response Error, status:", err.status);
     console.log("Response Error, status text:", err.statusText);
     console.log(err);
+  }
+
+  cancel(booking: BookingRm) {
+    const dto: BookDto = {
+      flightId: booking.flightId,
+      numberOfSeats: booking.numberOfBookedSeats,
+      passengerEmail: booking.passengerEmail
+    };
   }
 }
