@@ -11,7 +11,7 @@ export const routes: Routes = [
   { path: 'search-flights', component: SearchFlights },
   { path: 'book-flight/:flightId', component: BookFlight, canActivate: [authGuard] },
   { path: 'register-passenger', component: RegisterPassenger },
-  { path: 'my-bookings', component: MyBookings },
+  { path: 'my-bookings', component: MyBookings, canActivate: [authGuard] },
 ];
 
 
