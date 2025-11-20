@@ -59,7 +59,7 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(400)] // bad request
         [ProducesResponseType(500)] // internal server error
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
-        public IEnumerable<FlightRm> Search()
+        public IEnumerable<FlightRm> Search(FlightSearchParameters parameters)
         {
             var flightRmList = _entities.Flights.Select(flight => new FlightRm(
                 flight.Id,
@@ -106,7 +106,7 @@ namespace FlightsApi.Controllers
             {
                 _entities.SaveChanges();
             }
-            catch (DbUpdateConcurrencyException e)
+            catch
             {
                 return Conflict(new { message = "An error occurred while booking. Please try again." });
             }
