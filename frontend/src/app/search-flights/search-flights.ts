@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
 import { RouterModule } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
+import { FormBuilder } from '@angular/forms';
 
 
 @Component({
@@ -12,41 +13,11 @@ import { FlightRm } from '../api/models';
   styleUrl: './search-flights.scss'
 })
 export class SearchFlights {
-
-  // test data
-  searchResultsV01: any = [
-    "American Airlines",
-    "British Airways",
-    "Lufthansa",
-  ];
-
-  searchResultsV02: FlightRm[] = [
-    {
-      airline: "American Airlines",
-      remainingNumberOfSeats: 500,
-      departure: { time: Date.now().toString(), place: "Los-Angeles" },
-      arrival: { time: Date.now().toString(), place: "Istanbul" },
-      price: "350",
-    },
-    {
-      airline: "Deutsche BA",
-      remainingNumberOfSeats: 60,
-      departure: { time: Date.now().toString(), place: "Munchen" },
-      arrival: { time: Date.now().toString(), place: "Schiphol" },
-      price: "600",
-    },
-    {
-      airline: "British Airways",
-      remainingNumberOfSeats: 50,
-      departure: { time: Date.now().toString(), place: "London" },
-      arrival: { time: Date.now().toString(), place: "Valencia" },
-      price: "700",
-    }
-  ];
-
   searchResult: FlightRm[] = []
 
-  constructor(private flightService: FlightService) { }
+  constructor(private flightService: FlightService,
+    private fb: FormBuilder
+  ) { }
 
   search() {
     this.flightService.searchFlight()
