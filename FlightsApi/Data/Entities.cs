@@ -24,6 +24,8 @@ namespace FlightsApi.Data
 
             // To avoid race condition whe the same seat is booked simultaneously
             modelBuilder.Entity<Flight>().Property(p => p.RemainingNumberOfSeats).IsConcurrencyToken();
+
+            modelBuilder.Entity<Flight>().OwnsMany(f => f.Bookings);
         }
     }
 }
