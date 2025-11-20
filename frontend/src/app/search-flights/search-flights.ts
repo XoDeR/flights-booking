@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
 import { RouterModule } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 
 @Component({
@@ -12,12 +12,23 @@ import { FormBuilder } from '@angular/forms';
   templateUrl: './search-flights.html',
   styleUrl: './search-flights.scss'
 })
-export class SearchFlights {
+export class SearchFlights implements OnInit {
+  searchForm!: FormGroup;
   searchResult: FlightRm[] = []
 
   constructor(private flightService: FlightService,
     private fb: FormBuilder
   ) { }
+
+  ngOnInit() {
+    this.searchForm = this.fb.group({
+      from: [''],
+      destination: [''],
+      fromDate: [''],
+      toDate: [''],
+      numberOfPassengers: [1]
+    });
+  }
 
   search() {
     this.flightService.searchFlight()
