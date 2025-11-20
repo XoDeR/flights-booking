@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PassengerService } from '../api/services/passenger.service';
 import { FormGroup, ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { Auth } from '../auth/auth';
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './register-passenger.html',
   styleUrl: './register-passenger.scss'
 })
-export class RegisterPassenger {
+export class RegisterPassenger implements OnInit {
   form!: FormGroup;
 
   constructor(private passengerService: PassengerService,
