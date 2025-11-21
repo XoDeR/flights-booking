@@ -17,6 +17,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.DescribeAllParametersInCamelCase(); // needed to make dotnet and angular query params compatible
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "FlightsApi", Version = "1.0" });
     c.EnableAnnotations(); // if using [SwaggerOperation]
     c.AddServer(new OpenApiServer

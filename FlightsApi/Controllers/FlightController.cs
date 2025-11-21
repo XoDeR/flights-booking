@@ -61,6 +61,8 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search([FromQuery] FlightSearchParameters parameters)
         {
+            _logger.LogInformation("Searching for: {Destination}", parameters.Destination);
+
             var flightRmList = _entities.Flights.Select(flight => new FlightRm(
                 flight.Id,
                 flight.Airline,
