@@ -31,7 +31,7 @@ export class SearchFlights implements OnInit {
   }
 
   search() {
-    this.flightService.searchFlight()
+    this.flightService.searchFlight(this.searchForm.value)
       .then(r => this.searchResult = r)
       .catch(err => this.handleError(err));
   }
