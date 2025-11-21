@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common'; // includes ngClass, ngIf, etc.
 import { RouterModule } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-search-flights',
-  imports: [CommonModule, RouterModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterModule],
   templateUrl: './search-flights.html',
   styleUrl: './search-flights.scss'
 })
