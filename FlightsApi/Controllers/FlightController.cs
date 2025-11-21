@@ -59,7 +59,7 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(400)] // bad request
         [ProducesResponseType(500)] // internal server error
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
-        public IEnumerable<FlightRm> Search(FlightSearchParameters parameters)
+        public IEnumerable<FlightRm> Search([FromQuery] FlightSearchParameters parameters)
         {
             var flightRmList = _entities.Flights.Select(flight => new FlightRm(
                 flight.Id,
