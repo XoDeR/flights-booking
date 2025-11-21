@@ -4,6 +4,7 @@ using FlightsApi.Dtos;
 using FlightsApi.Domain.Errors;
 using FlightsApi.Data;
 using Microsoft.EntityFrameworkCore;
+using FlightsApi.Domain.Entities;
 
 namespace FlightsApi.Controllers
 {
@@ -61,22 +62,55 @@ namespace FlightsApi.Controllers
         [ProducesResponseType(typeof(IEnumerable<FlightRm>), 200)]
         public IEnumerable<FlightRm> Search([FromQuery] FlightSearchParameters parameters)
         {
-            _logger.LogInformation("Searching for: {Destination}", parameters.Destination);
+            //_logger.LogInformation("Searching for: {Destination}", parameters.Destination);
 
-            var flightRmList = _entities.Flights.Select(flight => new FlightRm(
-                flight.Id,
-                flight.Airline,
-                flight.Price,
-                new TimePlaceRm(
-                    flight.Departure.Place.ToString(),
-                    flight.Departure.Time
-                ),
-                new TimePlaceRm(
-                    flight.Arrival.Place.ToString(),
-                    flight.Arrival.Time
-                ),
-                flight.RemainingNumberOfSeats
-            )).ToArray();
+            IQueryable<Flight> flights = _entities.Flights;
+
+            if (!string.IsNullOrWhiteSpace(parameters.Destination))
+            {
+                flights = flights.Where(f => f.Arrival.Place.Contains(parameters.Destination));
+            }
+
+            if (!string.IsNullOrWhiteSpace(parameters.From))
+            {
+                flights = flights.Where(f => f.Departure.Place.Contains(parameters.From));
+            }
+
+            if (parameters.FromDate != null)
+            {
+                flights = flights.Where(f => f.Departure.Time >= parameters.FromDate.Value.Date);
+            }
+
+            if (parameters.ToDate != null)
+            {
+                flights = flights.Where(f => f.Departure.Time < parameters.ToDate.Value.Date.AddDays(1).AddTicks(-1));
+            }
+
+            if (parameters.NumberOfPassengers != 0 && parameters.NumberOfPassengers != null)
+            {
+                flights = flights.Where(f => f.RemainingNumberOfSeats >= parameters.NumberOfPassengers);
+            }
+            else
+            {
+                // Still filter out completely full flights
+                flights = flights.Where(f => f.RemainingNumberOfSeats >= 1);
+            }
+
+            var flightRmList = flights
+                .Select(flight => new FlightRm(
+                    flight.Id,
+                    flight.Airline,
+                    flight.Price,
+                    new TimePlaceRm(
+                        flight.Departure.Place.ToString(),
+                        flight.Departure.Time
+                    ),
+                    new TimePlaceRm(
+                        flight.Arrival.Place.ToString(),
+                        flight.Arrival.Time
+                    ),
+                    flight.RemainingNumberOfSeats
+                )).ToArray();
 
             return flightRmList;
         }

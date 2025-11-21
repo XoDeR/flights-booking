@@ -28,6 +28,8 @@ export class SearchFlights implements OnInit {
       toDate: [''],
       numberOfPassengers: [1]
     });
+
+    this.search();
   }
 
   search() {
